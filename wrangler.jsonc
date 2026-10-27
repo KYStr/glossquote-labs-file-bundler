@@ -1,0 +1,32 @@
+{
+  "name": "glossquote-file-bundler",
+  "compatibility_date": "2026-10-24",
+  "workers_dev": false,
+  "preview_urls": false,
+  "send_metrics": false,
+  "routes": [
+    {
+      "pattern": "file-bundles.glossquote.com",
+      "custom_domain": true
+    }
+  ],
+  "observability": {
+    "enabled": false,
+    "logs": {
+      "enabled": false,
+      "invocation_logs": false
+    },
+    "traces": {
+      "enabled": false
+    }
+  },
+  "assets": {
+    "directory": "./release-artifacts/site",
+    "run_worker_first": false,
+    "html_handling": "none",
+    "not_found_handling": "none"
+  },
+  "build": {
+    "command": "node scripts/release.mjs build"
+  }
+}

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Attachment Size Bundler — Free Local ZIP Splitter</title>
+  <meta name="description" content="Split up to 100 selected files into ZIP bundles by exact archive size. Files are processed in your browser.">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; worker-src 'self'; connect-src 'none'; img-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <link rel="stylesheet" href="/css/app.css">
+  <script type="module" src="/js/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to bundling workspace</a>
+  <header class="site-header">
+    <div class="topbar"><a class="brand" href="https://glossquote.com/en/index.html">Gloss Tools <span>by GlossQuote</span></a><nav aria-label="Language"><a href="/index.html" lang="zh-Hant" aria-describedby="language-warning">繁體中文</a><span aria-current="page">English</span></nav></div>
+    <p id="language-warning" class="language-warning">Changing language leaves this page. Selected files and undownloaded bundles will be lost. The size limit is also reset.</p>
+  </header>
+  <main id="main">
+    <div class="intro"><div><h1>Bundle files by attachment size</h1><p>Set a per-ZIP limit, review each archive’s exact size, then download bundles one at a time.</p></div><span class="candidate">Local candidate; not deployed</span></div>
+    <p class="privacy-note">Files stay in this tab’s memory and are not uploaded. ZIPs use no compression; content bytes stay unchanged.</p>
+    <noscript><p class="notice">Enable JavaScript and use a browser with module Worker support to create ZIPs locally.</p></noscript>
+    <div class="workspace">
+      <section id="drop-zone" class="selection" aria-labelledby="selection-title">
+        <div class="section-heading"><h2 id="selection-title">Selected files</h2><button id="clear" class="quiet" type="button" disabled>Clear all</button></div>
+        <div id="file-control" class="file-control"><label for="files">Choose files</label><input id="files" type="file" multiple aria-describedby="file-help selection-summary error-panel"></div>
+        <p id="file-help" class="help">Or drop regular files here. Folders are not supported. Choosing again replaces the current list.</p>
+        <p id="selection-summary" class="selection-summary">Selected 0 / 100 files · Total 0 bytes</p>
+        <div class="file-list-region" role="region" aria-label="Selected file list" tabindex="0"><p id="files-empty" class="empty">No files selected. Choose the attachments you want to bundle together.</p><ol id="files-list" class="files-list"></ol></div>
+      </section>
+      <section class="settings" aria-labelledby="limit-title">
+        <h2 id="limit-title">Limit for each ZIP</h2>
+        <label for="package-limit">Per-ZIP limit</label>
+        <input id="package-limit" type="text" value="20 MiB" spellcheck="false" autocomplete="off" autocapitalize="off" aria-describedby="limit-help capacity-help error-panel">
+        <p id="limit-help" class="help">Integer B or MiB. Examples: 150 B, 20 MiB. No unit means bytes.</p>
+        <p id="capacity-help" class="help">Up to 100 files and 64 MiB of source data. ZIP limit: 1–67,108,864 B. 1 MiB = 1,048,576 B.</p>
+        <p class="limit-note">The limit includes ZIP overhead. Mail services may add transfer encoding; leave room for the recipient’s rules.</p>
+        <div class="actions"><button id="build" type="button" disabled>Build bundles</button><button id="cancel" type="button" hidden>Cancel bundling</button></div>
+        <div id="progress-area" hidden><label for="build-progress">Files read</label><progress id="build-progress" max="1" value="0"></progress><span id="progress-count" class="file-meta">0 / 0 files</span></div>
+      </section>
+      <div class="feedback"><p id="status" role="status" aria-live="polite" aria-atomic="true">Choose files to begin.</p><div id="error-panel" class="notice error" role="alert" aria-atomic="true" hidden><h3>! Review before bundling</h3><ul id="errors"></ul></div></div>
+    </div>
+    <section id="results" class="results" aria-labelledby="results-title" aria-busy="false">
+      <div class="section-heading"><h2 id="results-title">Bundle results</h2><span id="result-summary" class="file-meta"></span></div>
+      <p id="results-empty" class="empty">Choose files and set a limit to see each ZIP’s exact size and contents here.</p>
+      <div id="bundles"></div><div id="index-download" class="index-download"></div>
+      <p id="ready-note" class="help" hidden>Download bundles individually, and the index separately. Results stay until you clear, change files or the limit, build again, or leave this page. They do not expire automatically.</p>
+    </section>
+    <section class="faq" aria-labelledby="faq-title"><h2 id="faq-title">Frequently asked questions</h2>
+      <details><summary>Are my files uploaded?</summary><p>No. The candidate processes selected files in the current browser tab and has no account or upload feature. Files and results are not saved in website storage. Clearing this page does not delete downloaded files or securely erase browser memory.</p></details>
+      <details><summary>Will ZIPs meet the limit?</summary><p>The tool measures actual ZIP STORE bytes. Source contents are not compressed; names and archive records add overhead. Mail services may add transfer encoding, so leave room for their rules.</p></details>
+      <details><summary>Why are there multiple bundles?</summary><p>Files are processed by descending source size, breaking ties by selection order, and placed in the first bundle that fits. Stable first-fit-decreasing accounts for ZIP overhead but does not promise the fewest bundles. It does not split an individual source file into parts.</p></details>
+      <details><summary>Can I cancel or choose files again?</summary><p>Yes. Canceling, removing files, changing the limit, or starting over clears old results and temporary URLs. Cancel keeps the file list; Clear all starts empty. Closing the tab or changing language loses undownloaded results.</p></details>
+      <details><summary>Are my originals changed?</summary><p>No. Content bytes remain unchanged; ZIP entry names are normalized to NFC. Originals are not deleted or overwritten. The index contains entry names, sizes and CRC32 values; sharing the index also shares those names.</p></details>
+    </section>
+  </main>
+  <footer><span>Attachment size bundler · Gloss Tools by GlossQuote</span><a href="https://glossquote.com/en/index.html">Back to all tools</a></footer>
+</body>
+</html>

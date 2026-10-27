@@ -1,0 +1,38 @@
+[
+  {
+    "path": "fixtures/single-x/bundle-001.zip",
+    "bytes": 109,
+    "sha256": "f6a926a3a0f0ba936884412dd0e27573c8cdc7aa33f60b32136b7940a0362e8f",
+    "input": "synthetic memory bytes only"
+  },
+  {
+    "path": "fixtures/single-x/bundle-index.json",
+    "bytes": 389,
+    "sha256": "98fe5ea57786f09d251af1eb9f324bc82356d6faac55970b74d5cc04e1bf035c",
+    "input": "synthetic memory bytes only"
+  },
+  {
+    "path": "fixtures/empty-a/bundle-001.zip",
+    "bytes": 100,
+    "sha256": "12eeb4154b4ffa54f0043c1acfed23b59bb97e367b72f861297560338b5dfecd",
+    "input": "synthetic memory bytes only"
+  },
+  {
+    "path": "fixtures/empty-a/bundle-index.json",
+    "bytes": 385,
+    "sha256": "595b84ddeeb29c9ec4d54dc280fc36c8cf94f1b8f4aa81a7c055df4e94b0ac58",
+    "input": "synthetic memory bytes only"
+  },
+  {
+    "path": "fixtures/pair-180/bundle-001.zip",
+    "bytes": 180,
+    "sha256": "5afeb357af8d6920d7118875882475f23fe350642ec61fd213a50502a78ee0e1",
+    "input": "synthetic memory bytes only"
+  },
+  {
+    "path": "fixtures/pair-180/bundle-index.json",
+    "bytes": 513,
+    "sha256": "26494940b78afca07aa9711168836b55c4591d5e48f8dfcab670b8164c0bfaa3",
+    "input": "synthetic memory bytes only"
+  }
+]

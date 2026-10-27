@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>附件大小分包｜免費本機 ZIP 分包工具</title>
+  <meta name="description" content="選取最多 100 個檔案，按 ZIP 實際大小分包並下載。檔案只在目前瀏覽器本機處理。">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; worker-src 'self'; connect-src 'none'; img-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <link rel="stylesheet" href="/css/app.css">
+  <script type="module" src="/js/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳至分包工作區</a>
+  <header class="site-header">
+    <div class="topbar"><a class="brand" href="https://glossquote.com/index.html">Gloss Tools <span>by GlossQuote</span></a><nav aria-label="語言"><span aria-current="page">繁體中文</span><a href="/en/index.html" lang="en" aria-describedby="language-warning">English</a></nav></div>
+    <p id="language-warning" class="language-warning">切換語言會離開此頁；未下載的分包和索引會遺失。選檔與上限也不會保留。</p>
+  </header>
+  <main id="main">
+    <div class="intro"><div><h1>依附件大小分包</h1><p>設定單包上限，確認每個 ZIP 的實際大小，再逐包下載。</p></div><span class="candidate">本機候選版；尚未部署</span></div>
+    <p class="privacy-note">檔案只在目前分頁的記憶體中處理，不上傳。ZIP 不壓縮；內容位元組保持原樣。</p>
+    <noscript><p class="notice">請啟用 JavaScript，並使用支援 module Worker 的瀏覽器，以在本機建立 ZIP。</p></noscript>
+    <div class="workspace">
+      <section id="drop-zone" class="selection" aria-labelledby="selection-title">
+        <div class="section-heading"><h2 id="selection-title">所選檔案</h2><button id="clear" class="quiet" type="button" disabled>清除全部</button></div>
+        <div id="file-control" class="file-control"><label for="files">選取檔案</label><input id="files" type="file" multiple aria-describedby="file-help selection-summary error-panel"></div>
+        <p id="file-help" class="help">也可將一般檔案拖到此區。不支援資料夾；重新選取會取代目前清單。</p>
+        <p id="selection-summary" class="selection-summary">已選 0 / 100 個檔案 · 合計 0 位元組</p>
+        <div class="file-list-region" role="region" aria-label="所選檔案清單" tabindex="0"><p id="files-empty" class="empty">尚未選取檔案。先選取要一起分包的附件。</p><ol id="files-list" class="files-list"></ol></div>
+      </section>
+      <section class="settings" aria-labelledby="limit-title">
+        <h2 id="limit-title">每個 ZIP 的上限</h2>
+        <label for="package-limit">單包上限</label>
+        <input id="package-limit" type="text" value="20 MiB" spellcheck="false" autocomplete="off" autocapitalize="off" aria-describedby="limit-help capacity-help error-panel">
+        <p id="limit-help" class="help">整數 B 或 MiB。例：150 B、20 MiB。省略單位即為位元組。</p>
+        <p id="capacity-help" class="help">最多 100 檔、來源合計 64 MiB。單包可設 1–67,108,864 B；1 MiB = 1,048,576 B。</p>
+        <p class="limit-note">上限包含 ZIP 結構。郵件服務可能另加傳輸編碼，請依收件端規則預留空間。</p>
+        <div class="actions"><button id="build" type="button" disabled>開始分包</button><button id="cancel" type="button" hidden>取消分包</button></div>
+        <div id="progress-area" hidden><label for="build-progress">已讀取檔案</label><progress id="build-progress" max="1" value="0"></progress><span id="progress-count" class="file-meta">0 / 0 個檔案</span></div>
+      </section>
+      <div class="feedback"><p id="status" role="status" aria-live="polite" aria-atomic="true">選取檔案以開始。</p><div id="error-panel" class="notice error" role="alert" aria-atomic="true" hidden><h3>! 需要調整才能分包</h3><ul id="errors"></ul></div></div>
+    </div>
+    <section id="results" class="results" aria-labelledby="results-title" aria-busy="false">
+      <div class="section-heading"><h2 id="results-title">分包結果</h2><span id="result-summary" class="file-meta"></span></div>
+      <p id="results-empty" class="empty">選好檔案並設定上限後，這裡會顯示每個 ZIP 的實際大小與內容。</p>
+      <div id="bundles"></div><div id="index-download" class="index-download"></div>
+      <p id="ready-note" class="help" hidden>請逐包下載，索引另行下載。結果會保留至清除、修改來源或上限、重新分包或離開本頁；不會自動過期。</p>
+    </section>
+    <section class="faq" aria-labelledby="faq-title"><h2 id="faq-title">常見問題</h2>
+      <details><summary>檔案會上傳嗎？</summary><p>不會。候選版在目前瀏覽器分頁處理所選檔案，沒有帳號或上傳功能。不將選檔與產物寫入網站儲存空間。清除本頁不會刪除已下載檔案，也不代表安全抹除瀏覽器記憶體。</p></details>
+      <details><summary>ZIP 會符合上限嗎？</summary><p>工具按 ZIP STORE 實際位元組計算和驗證。來源內容不壓縮，ZIP 因檔名與結構而稍大；郵件服務可能另加傳輸編碼，請依收件端規則留空間。</p></details>
+      <details><summary>為什麼分成多包？</summary><p>依來源大小遞減、同大小依選取順序處理，放入第一個容得下的包。這個穩定 first-fit-decreasing 方法會計入 ZIP 結構，但不保證包數最少。它不會把單一來源檔切成多份。</p></details>
+      <details><summary>可以取消或重新選檔嗎？</summary><p>可以。取消、移除、更改上限或重新選檔都會清除舊結果和暫存 URL。取消後保留選檔清單；按「清除全部」回到空白。關閉分頁或切換語言會失去尚未下載結果。</p></details>
+      <details><summary>來源檔會被修改嗎？</summary><p>不會。內容位元組保持不變；ZIP 成員名稱會正規化為 NFC。來源檔案不會被刪除或覆寫。索引會包含 ZIP 成員名稱、大小與 CRC32；分享索引時也會分享這些檔名。</p></details>
+    </section>
+  </main>
+  <footer><span>附件大小分包 · Gloss Tools by GlossQuote</span><a href="https://glossquote.com/index.html">返回工具首頁</a></footer>
+</body>
+</html>

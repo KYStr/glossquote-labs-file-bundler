@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "kind": "glossquote-file-bundler-index",
+  "algorithm": "stable-ffd-zip-store-v1",
+  "packageLimitBytes": 180,
+  "packages": [
+    {
+      "fileName": "bundle-001.zip",
+      "sizeBytes": 180,
+      "entries": [
+        {
+          "sourceIndex": 0,
+          "name": "a",
+          "sizeBytes": 1,
+          "crc32": "a505df1b"
+        },
+        {
+          "sourceIndex": 1,
+          "name": "b",
+          "sizeBytes": 1,
+          "crc32": "3c0c8ea1"
+        }
+      ]
+    }
+  ]
+}
